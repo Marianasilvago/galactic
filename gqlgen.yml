@@ -1,0 +1,265 @@
+# .gqlgen.yml example
+#
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+  - schema/**/*.graphql
+exec:
+  filename: gql/generated.go
+
+model:
+  filename: gql/models_gen.go
+
+models:
+  Cursor:
+    model: github.com/pilagod/gorm-cursor-paginator.Cursor
+
+  Account:
+    model: gitlab.com/reenue/graphql-server/model.Account
+    fields:
+      billingAddress:
+        resolver: true
+      contactAddresss:
+        resolver: true
+      business:
+        resolver: true
+      contracts:
+        resolver: true
+      executive:
+        resolver: true
+      msas:
+        resolver: true
+      notes:
+        resolver: true
+      opportunities:
+        resolver: true
+      tasks:
+        resolver: true
+
+  AccountRates:
+    model: gitlab.com/reenue/graphql-server/model.AccountRates
+    fields:
+      totalValue:
+        resolver: true
+      activeOpportunities:
+        resolver: true
+      averageDifference:
+        resolver: true
+
+  AddressType:
+    model: gitlab.com/reenue/graphql-server/model.AddressType
+
+  Address:
+    model: gitlab.com/reenue/graphql-server/model.Address
+
+  Business:
+    model: gitlab.com/reenue/graphql-server/model.Business
+    fields:
+      accounts:
+        resolver: true
+      addresses:
+        resolver: true
+      financial:
+        resolver: true
+      priceBook:
+        resolver: true
+      users:
+        resolver: true
+
+  Contact:
+    model: gitlab.com/reenue/graphql-server/model.Contact
+    fields:
+      addresses:
+        resolver: true
+  ContactType:
+    model: gitlab.com/reenue/graphql-server/model.ContactType
+
+  Contract:
+    model: gitlab.com/reenue/graphql-server/model.Contract
+    fields:
+      account:
+        resolver: true
+      insight:
+        resolver: true
+      items:
+        resolver: true
+      orderForms:
+        resolver: true
+      opportunity:
+        resolver: true
+
+  ContractStatus:
+    model: gitlab.com/reenue/graphql-server/model.ContractStatus
+
+  DiscountType:
+    model: gitlab.com/reenue/graphql-server/model.DiscountType
+
+  File:
+    model: gitlab.com/reenue/graphql-server/model.File
+    fields:
+      src:
+        resolver: true
+
+  Financial:
+    model: gitlab.com/reenue/graphql-server/model.Financial
+    fields:
+      business:
+        resolver: true
+
+  Forecast:
+    model: gitlab.com/reenue/graphql-server/model.Forecast
+    fields:
+      opportunity:
+        resolver: true
+
+  Item:
+    model: gitlab.com/reenue/graphql-server/model.Item
+    fields:
+      contract:
+        resolver: true
+      product:
+        resolver: true
+
+  Insight:
+    model: gitlab.com/reenue/graphql-server/model.Insight
+    fields:
+      notes:
+        resolver: true
+
+  InsightNote:
+    model: gitlab.com/reenue/graphql-server/model.InsightNote
+
+  Msa:
+    model: gitlab.com/reenue/graphql-server/model.Msa
+    fields:
+      file:
+        resolver: true
+
+  Note:
+    model: gitlab.com/reenue/graphql-server/model.Note
+    fields:
+      user:
+        resolver: true
+
+  OpportunityStatus:
+    model: gitlab.com/reenue/graphql-server/model.OpportunityStatus
+
+  Opportunity:
+    model: gitlab.com/reenue/graphql-server/model.Opportunity
+    fields:
+      account:
+        resolver: true
+      contracts:
+        resolver: true
+      business:
+        resolver: true
+      insight:
+        resolver: true
+      notes:
+        resolver: true
+      user:
+        resolver: true
+      quote:
+        resolver: true
+      tasks:
+        resolver: true
+      touchPoints:
+        resolver: true
+
+  OrderForm:
+    model: gitlab.com/reenue/graphql-server/model.OrderForm
+    fields:
+      contract:
+        resolver: true
+      file:
+        resolver: true
+
+  PricebookColumns:
+    model: gitlab.com/reenue/graphql-server/model.PricebookColumns
+
+  PriceBook:
+    model: gitlab.com/reenue/graphql-server/model.PriceBook
+    fields:
+      products:
+        resolver: true
+
+  Price:
+    model: gitlab.com/reenue/graphql-server/model.Price
+    fields:
+      business:
+        resolver: true
+      product:
+        resolver: true
+
+  Product:
+    model: gitlab.com/reenue/graphql-server/model.Product
+    fields:
+      business:
+        resolver: true
+      prices:
+        resolver: true
+
+  Quote:
+    model: gitlab.com/reenue/graphql-server/model.Quote
+    fields:
+      opportunity:
+        resolver: true
+      items:
+        resolver: true
+      quoteForms:
+        resolver: true
+
+  QuoteForm:
+    model: gitlab.com/reenue/graphql-server/model.QuoteForm
+    fields:
+      quote:
+        resolver: true
+      file:
+        resolver: true
+
+  QuoteStatus:
+    model: gitlab.com/reenue/graphql-server/model.QuoteStatus
+
+  Signature:
+    model: gitlab.com/reenue/graphql-server/model.Signature
+
+  Task:
+    model: gitlab.com/reenue/graphql-server/model.Task
+    fields:
+      business:
+        resolver: true
+      opportunity:
+        resolver: true
+
+  TaskType:
+    model: gitlab.com/reenue/graphql-server/model.TaskType
+
+  TaskStatus:
+    model: gitlab.com/reenue/graphql-server/model.TaskStatus
+
+  Template:
+    model: gitlab.com/reenue/graphql-server/model.Template
+
+  TemplateType:
+    model: gitlab.com/reenue/graphql-server/model.TemplateType
+
+  TouchPoint:
+    model: gitlab.com/reenue/graphql-server/model.TouchPoint
+
+  TouchPointType:
+    model: gitlab.com/reenue/graphql-server/model.TouchPointType
+
+  User:
+    model: gitlab.com/reenue/graphql-server/model.User
+    fields:
+      business:
+        resolver: true
+
+  UserStatus:
+    model: gitlab.com/reenue/graphql-server/model.UserStatus
+
+resolver:
+  filename: gql/resolver.go
+  type: Resolver
+autobind: []

@@ -1,0 +1,60 @@
+enum AddressType {
+    BILLING
+    SHIPPING
+    CONTACT
+    OTHER
+}
+
+type AccountConnection {
+    nodes: [Account!]!
+    cursor: Cursor!
+}
+
+type Ship {
+    id: ID!
+    business: Business!
+    name: String!
+    website: String
+    employees: Int
+    revenue: Float
+    billingAddress: Address
+    contactAddress: Address
+    contacts: [Contact!]!
+    msas: [Msa!]!
+    notes: [Note!]!
+    phone: String
+    executive: User
+    opportunities: [Opportunity!]!
+    tasks(paging: Paging): TaskConnection!
+    rates: AccountRates!
+    createdAt: Timestamp!
+    updatedAt: Timestamp!
+}
+
+type AccountRates {
+    totalValue: Float!
+    activeOpportunities: Int!
+    averageDifference: Float!
+}
+
+input NewAccount {
+    name: String!
+    website: String
+    phone: String
+    employees: Int
+    revenue: Float
+}
+
+input UpdateAccount {
+    id: ID!
+    name: String
+    website: String
+    phone: String
+    employees: Int
+    revenue: Float
+}
+
+input AssignExecutive {
+  id: ID!
+  userId: ID!
+}

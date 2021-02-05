@@ -1,0 +1,69 @@
+version: "3.4"
+
+x-go: &default-go
+  build:
+    context: .
+    dockerfile: dev.Dockerfile
+  volumes:
+    - .:/app
+    - /app/.dlv
+    - ${GOPATH:-~/.go}/pkg/mod/cache:/go/pkg/mod/cache
+  env_file:
+    - .env
+  external_links:
+    - mail-service_app
+  depends_on:
+    - redis
+  networks:
+    - internal
+
+services:
+  app:
+    <<: *default-go
+    ports:
+      - 40002:40000
+    labels:
+      - traefik.http.services.reenue-business.loadbalancer.server.port=8080
+      - traefik.http.routers.reenue-business.rule=Host(`reenue.${DEV_DOMAIN}`) && PathPrefix(`/graphql`, `/graphqli`, `/health-check`)
+      - traefik.http.routers.reenue-new-admin-business.rule=Host(`admin-reenue.${DEV_DOMAIN}`) && PathPrefix(`/graphql`, `/graphqli`, `/health-check`)
+      - traefik.http.routers.reenue-admin-business.rule=Host(`admin-reenue.${DEV_DOMAIN}`) && PathPrefix(`/graphql`, `/graphqli`)
+    networks:
+      - internal
+      - proxy
+
+  queue:
+    <<: *default-go
+    ports:
+      - 40042:40000
+    environment:
+      RUN_ARGS: queue
+
+  pg:
+    image: postgres
+    environment:
+      POSTGRES_USER: reenue-user
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: reenue-db
+      POSTGRES_ROOT_PASSWORD: nv23b8rNgGf6J4wFubexFvJx
+    ports:
+      - 0:5432
+    volumes:
+      - pgsqldb:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  redis:
+    image: "redis"
+    networks:
+      - internal
+
+# Create Persistance Volume
+volumes:
+  pgsqldb:
+
+# Setup Networks
+networks:
+  internal:
+    external: false
+  proxy:
+    external: true
